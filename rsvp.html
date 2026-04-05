@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RSVP — Arjun & Priya</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.rsvp-wrap { max-width:680px; margin:0 auto; }
+.rsvp-card {
+  background:var(--ivory); border:1px solid rgba(201,168,76,.3);
+  padding:3.5rem 4rem; position:relative;
+}
+.rsvp-card::before {
+  content:'✦  ✦  ✦'; position:absolute; top:-.75rem;
+  left:50%; transform:translateX(-50%);
+  background:var(--cream); padding:0 1.2rem;
+  color:var(--gold); letter-spacing:.5em; font-size:.65rem;
+}
+.form-section-label {
+  font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.2em;
+  color:rgba(107,26,26,.5); text-transform:uppercase;
+  margin:1.8rem 0 1rem; padding-bottom:.4rem;
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+
+.submit-btn {
+  width:100%; margin-top:1.5rem; padding:1.1rem;
+  background:var(--maroon); border:1px solid var(--gold);
+  color:var(--gold-light); font-family:'Cinzel',serif;
+  font-size:.72rem; letter-spacing:.3em; text-transform:uppercase;
+  cursor:pointer; transition:all .35s; display:flex; align-items:center; justify-content:center; gap:.5rem;
+}
+.submit-btn:hover:not(:disabled) { background:var(--maroon-deep); letter-spacing:.4em; }
+.submit-btn:disabled { opacity:.6; cursor:not-allowed; }
+
+/* SUCCESS STATE */
+.success-screen { display:none; text-align:center; padding:3rem 1rem; }
+.success-screen.show { display:block; }
+.s-icon  { font-size:4rem; display:block; margin-bottom:1.5rem; }
+.s-title { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--maroon); margin-bottom:.5rem; }
+.s-sub   { font-size:.92rem; color:var(--text-mid); line-height:1.8; max-width:420px; margin:0 auto 2rem; }
+
+/* SIDE CARDS */
+.side-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:2rem; }
+.sc { padding:1.5rem 1rem; border:1px solid rgba(201,168,76,.2); background:var(--ivory); text-align:center; }
+.sc-icon  { font-size:1.8rem; display:block; margin-bottom:.5rem; }
+.sc-label { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.15em; color:var(--gold); text-transform:uppercase; margin-bottom:.3rem; }
+.sc-val   { font-size:.85rem; color:var(--text-mid); }
+
+/* TOAST */
+.toast { position:fixed; bottom:2rem; right:2rem; z-index:999; background:var(--maroon); color:var(--gold-light); font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.1em; padding:1rem 1.5rem; border:1px solid var(--gold); transform:translateY(100px); opacity:0; transition:all .4s; }
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.error { background:#3D0000; border-color:#cc4444; color:#ffaaaa; }
+
+@media(max-width:640px){ .rsvp-card{padding:2.5rem 1.5rem;} .side-cards{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="story.html">Our Story</a>
+  <a href="events.html">Events</a>
+  <a href="family.html">Family</a>
+  <a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="venue.html">Venue</a>
+  <a href="wishes.html">Wishes</a>
+  <a href="rsvp.html" class="active">RSVP</a>
+</nav>
+<main>
+  <div class="page-banner">
+    <p class="page-tag">Join Us</p>
+    <h1 class="page-title">Confirm Your <em>Attendance</em></h1>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="rsvp-wrap">
+      <div class="rsvp-card reveal">
+
+        <!-- ── FORM ── -->
+        <div id="rsvp-form">
+          <div class="form-section-label">Your Details</div>
+          <div class="fg-grid2">
+            <div class="fg"><label>First Name *</label><input type="text" id="fn" placeholder="Ananya" autocomplete="given-name"></div>
+            <div class="fg"><label>Last Name *</label><input type="text" id="ln" placeholder="Suresh" autocomplete="family-name"></div>
+          </div>
+          <div class="fg-grid2">
+            <div class="fg"><label>Phone Number *</label><input type="tel" id="ph" placeholder="+91 98765 43210" autocomplete="tel"></div>
+            <div class="fg"><label>Email (optional)</label><input type="email" id="em" placeholder="ananya@email.com" autocomplete="email"></div>
+          </div>
+          <div class="fg">
+            <label>Number of Guests Attending</label>
+            <select id="guests">
+              <option value="1">1 — Just me</option>
+              <option value="2">2 — Two of us</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5+</option>
+            </select>
+          </div>
+
+          <div class="form-section-label">Which Events Are You Attending?</div>
+          <div class="fg">
+            <div class="check-group">
+              <div class="ci"><input type="checkbox" id="e-mehendi"><label for="e-mehendi">Mehendi & Sangeet</label></div>
+              <div class="ci"><input type="checkbox" id="e-haldi"><label for="e-haldi">Haldi</label></div>
+              <div class="ci"><input type="checkbox" id="e-wedding" checked><label for="e-wedding">Wedding Ceremony</label></div>
+              <div class="ci"><input type="checkbox" id="e-reception" checked><label for="e-reception">Reception</label></div>
+            </div>
+          </div>
+
+          <div class="form-section-label">Preferences</div>
+          <div class="fg">
+            <label>Meal Preference</label>
+            <div class="radio-group">
+              <div class="ri"><input type="radio" name="meal" id="m-veg" value="Vegetarian" checked><label for="m-veg">Vegetarian</label></div>
+              <div class="ri"><input type="radio" name="meal" id="m-jain" value="Jain"><label for="m-jain">Jain</label></div>
+            </div>
+          </div>
+
+          <div class="divider-thin"></div>
+          <div class="fg">
+            <label>Message for Arjun & Priya (optional)</label>
+            <textarea id="msg" placeholder="Share your wishes and blessings for the couple…"></textarea>
+          </div>
+
+          <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">
+            Confirm Attendance ✦
+          </button>
+        </div>
+
+        <!-- ── SUCCESS ── -->
+        <div class="success-screen" id="success-screen">
+          <span class="s-icon">🎊</span>
+          <div class="s-title">See you there!</div>
+          <p class="s-sub">Thank you, <strong id="s-name"></strong>! Your RSVP has been saved. Arjun and Priya are so glad you'll be part of their special day.</p>
+          <a href="wishes.html" class="btn-gold">Leave a Wish for the Couple →</a>
+        </div>
+      </div>
+
+      <!-- SIDE INFO -->
+      <div class="side-cards">
+        <div class="sc reveal"><span class="sc-icon">📅</span><div class="sc-label">Wedding Date</div><div class="sc-val">15 November 2025</div></div>
+        <div class="sc reveal" style="transition-delay:.1s"><span class="sc-icon">📍</span><div class="sc-label">Venue</div><div class="sc-val">Grand Palace Convention, Anna Salai</div></div>
+        <div class="sc reveal" style="transition-delay:.2s"><span class="sc-icon">📞</span><div class="sc-label">Queries?</div><div class="sc-val">+91 98765 00001</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><div class="footer-names">Arjun & Priya</div><div class="footer-date">15 · 11 · 2025 · Chennai</div></footer>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { supabase } from './supabase.js';
+
+  const obs = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+
+  function showToast(msg, isError=false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  window.submitRSVP = async function() {
+    const fn = document.getElementById('fn').value.trim();
+    const ln = document.getElementById('ln').value.trim();
+    const ph = document.getElementById('ph').value.trim();
+    const em = document.getElementById('em').value.trim();
+
+    if (!fn) { showToast('Please enter your first name.', true); return; }
+    if (!ph) { showToast('Please enter your phone number.', true); return; }
+
+    const guestCount = parseInt(document.getElementById('guests').value) || 1;
+    const meal = document.querySelector('input[name="meal"]:checked')?.value || 'Vegetarian';
+    const msg  = document.getElementById('msg').value.trim();
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Saving…';
+
+    const { error } = await supabase.from('rsvp_guests').insert({
+      first_name:           fn,
+      last_name:            ln,
+      phone:                ph,
+      email:                em || null,
+      guest_count:          guestCount,
+      attending_mehendi:    document.getElementById('e-mehendi').checked,
+      attending_haldi:      document.getElementById('e-haldi').checked,
+      attending_wedding:    document.getElementById('e-wedding').checked,
+      attending_reception:  document.getElementById('e-reception').checked,
+      meal_preference:      meal,
+      message:              msg || null,
+    });
+
+    if (error) {
+      console.error(error);
+      showToast('Something went wrong. Please try again.', true);
+      btn.disabled = false;
+      btn.innerHTML = 'Confirm Attendance ✦';
+      return;
+    }
+
+    document.getElementById('rsvp-form').style.display = 'none';
+    document.getElementById('s-name').textContent = fn + (ln ? ' ' + ln : '');
+    document.getElementById('success-screen').classList.add('show');
+  };
+</script>
+</body>
+</html>

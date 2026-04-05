@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Wedding Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body { background:#1A0808; }
+
+/* LOGIN */
+.login-screen {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:2rem; padding-top:calc(56px + 2rem);
+}
+.login-card {
+  background:#2C0E0E; border:1px solid rgba(201,168,76,.25);
+  padding:3.5rem; max-width:420px; width:100%; text-align:center;
+}
+.login-icon { font-size:3rem; display:block; margin-bottom:1.5rem; }
+.login-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--gold-pale); margin-bottom:.5rem; }
+.login-sub   { font-size:.83rem; color:rgba(245,230,192,.5); margin-bottom:2rem; }
+.login-input {
+  width:100%; padding:.9rem 1rem; border:1px solid rgba(201,168,76,.25);
+  background:rgba(255,255,255,.04); color:var(--gold-pale);
+  font-family:'Lato',sans-serif; font-size:.88rem;
+  outline:none; text-align:center; letter-spacing:.2em; border-radius:0;
+}
+.login-input:focus { border-color:var(--gold); }
+.login-btn {
+  width:100%; margin-top:1rem; padding:1rem;
+  background:var(--maroon); border:1px solid var(--gold);
+  color:var(--gold-light); font-family:'Cinzel',serif;
+  font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; cursor:pointer; transition:all .3s;
+}
+.login-btn:hover { background:var(--maroon-deep); }
+.login-err { color:#ff8888; font-size:.8rem; margin-top:.8rem; display:none; }
+
+/* DASHBOARD */
+.dashboard { display:none; padding:2rem; padding-top:calc(56px + 2rem); max-width:1200px; margin:0 auto; }
+
+.dash-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem; }
+.dash-title  { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300; color:var(--gold-light); }
+.dash-sub    { font-size:.8rem; color:rgba(245,230,192,.5); margin-top:.2rem; }
+.logout-btn  { font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.15em; color:rgba(201,168,76,.6); background:transparent; border:1px solid rgba(201,168,76,.2); padding:.5rem 1rem; cursor:pointer; text-transform:uppercase; transition:all .3s; }
+.logout-btn:hover { color:var(--gold-light); border-color:var(--gold); }
+
+/* STAT CARDS */
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2.5rem; }
+.stat-card { background:#2C0E0E; border:1px solid rgba(201,168,76,.2); padding:1.8rem; text-align:center; }
+.stat-num  { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:var(--gold-light); line-height:1; }
+.stat-lbl  { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.18em; color:rgba(201,168,76,.5); text-transform:uppercase; margin-top:.4rem; }
+
+/* FILTERS */
+.filter-bar { display:flex; gap:.8rem; flex-wrap:wrap; margin-bottom:1.5rem; align-items:center; }
+.filter-input {
+  flex:1; min-width:200px; padding:.7rem 1rem; border:1px solid rgba(201,168,76,.2);
+  background:rgba(255,255,255,.04); color:var(--gold-pale); font-family:'Lato',sans-serif; font-size:.85rem; outline:none; border-radius:0;
+}
+.filter-input::placeholder { color:rgba(245,230,192,.3); }
+.filter-input:focus { border-color:var(--gold); }
+.filter-select {
+  padding:.7rem 1rem; border:1px solid rgba(201,168,76,.2);
+  background:rgba(255,255,255,.04); color:var(--gold-pale); font-family:'Lato',sans-serif; font-size:.83rem; outline:none; cursor:pointer; border-radius:0;
+}
+.export-btn { font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.15em; color:var(--gold); border:1px solid rgba(201,168,76,.3); background:transparent; padding:.7rem 1.2rem; cursor:pointer; text-transform:uppercase; transition:all .3s; white-space:nowrap; }
+.export-btn:hover { background:var(--gold); color:var(--maroon-deep); }
+
+/* TABLE */
+.table-wrap { overflow-x:auto; border:1px solid rgba(201,168,76,.15); border-radius:2px; }
+table { width:100%; border-collapse:collapse; min-width:900px; }
+thead tr { background:#2C0E0E; }
+th {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.15em;
+  color:rgba(201,168,76,.7); text-transform:uppercase; padding:1rem 1.2rem;
+  text-align:left; border-bottom:1px solid rgba(201,168,76,.15); white-space:nowrap;
+}
+td { padding:.9rem 1.2rem; font-size:.83rem; color:rgba(245,230,192,.75); border-bottom:1px solid rgba(201,168,76,.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:rgba(201,168,76,.03); }
+.badge { display:inline-block; padding:.18rem .55rem; border-radius:2px; font-size:.67rem; letter-spacing:.05em; white-space:nowrap; }
+.badge-yes  { background:rgba(76,153,76,.15); color:#7FBF7F; border:1px solid rgba(76,153,76,.2); }
+.badge-no   { background:rgba(100,100,100,.1); color:rgba(245,230,192,.3); border:1px solid rgba(100,100,100,.15); }
+.badge-veg  { background:rgba(201,168,76,.1); color:var(--gold); border:1px solid rgba(201,168,76,.2); }
+.guest-name { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--gold-light); }
+.msg-cell   { max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
+.msg-cell:hover { white-space:normal; }
+.date-cell  { color:rgba(245,230,192,.4); font-size:.75rem; }
+
+.no-results { text-align:center; padding:4rem; color:rgba(245,230,192,.4); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; }
+.loading-row { text-align:center; padding:3rem; color:rgba(201,168,76,.5); }
+
+/* WISHES SECTION */
+.section-head { display:flex; align-items:center; justify-content:space-between; margin:3rem 0 1.2rem; }
+.section-head h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--gold-light); }
+.wish-row { background:#2C0E0E; border:1px solid rgba(201,168,76,.12); padding:1.2rem 1.5rem; margin-bottom:.7rem; display:flex; gap:1rem; align-items:flex-start; }
+.wr-text { flex:1; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.98rem; color:rgba(245,230,192,.8); line-height:1.7; }
+.wr-meta { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em; color:rgba(201,168,76,.5); margin-top:.4rem; }
+.wr-del  { background:transparent; border:1px solid rgba(200,50,50,.25); color:rgba(200,80,80,.7); font-size:.7rem; padding:.3rem .7rem; cursor:pointer; transition:all .3s; }
+.wr-del:hover { background:rgba(200,50,50,.15); color:#ff8888; }
+
+nav { background:rgba(26,8,8,.97); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">← Back to Website</a>
+  <a href="admin.html" class="active" style="color:var(--gold)">Admin Dashboard</a>
+</nav>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <span class="login-icon">🔐</span>
+    <div class="login-title">Admin Access</div>
+    <p class="login-sub">Enter the admin password to view the wedding dashboard</p>
+    <input class="login-input" type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Enter Dashboard</button>
+    <div class="login-err" id="login-err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-title">Wedding Dashboard</div>
+      <div class="dash-sub">Arjun & Priya · 15 November 2025 · Live data from Supabase</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Sign Out</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num" id="s-total">—</div><div class="stat-lbl">Total RSVPs</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-guests">—</div><div class="stat-lbl">Total Guests</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-wedding">—</div><div class="stat-lbl">Attending Wedding</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-reception">—</div><div class="stat-lbl">Attending Reception</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-mehendi">—</div><div class="stat-lbl">Mehendi & Sangeet</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-wishes">—</div><div class="stat-lbl">Wishes Posted</div></div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <input class="filter-input" type="text" id="search" placeholder="Search by name, phone, email…" oninput="filterTable()">
+    <select class="filter-select" id="event-filter" onchange="filterTable()">
+      <option value="all">All Events</option>
+      <option value="wedding">Wedding</option>
+      <option value="reception">Reception</option>
+      <option value="mehendi">Mehendi</option>
+      <option value="haldi">Haldi</option>
+    </select>
+    <select class="filter-select" id="meal-filter" onchange="filterTable()">
+      <option value="all">All Meals</option>
+      <option value="Vegetarian">Vegetarian</option>
+      <option value="Jain">Jain</option>
+    </select>
+    <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Guests</th>
+          <th>Mehendi</th>
+          <th>Haldi</th>
+          <th>Wedding</th>
+          <th>Reception</th>
+          <th>Meal</th>
+          <th>Message</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody id="rsvp-tbody">
+        <tr><td colspan="12" class="loading-row"><span class="spinner"></span> Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:.6rem;font-size:.75rem;color:rgba(245,230,192,.3);text-align:right" id="row-count"></div>
+
+  <!-- WISHES -->
+  <div class="section-head">
+    <h2>All Wishes</h2>
+    <span style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.15em;color:rgba(201,168,76,.5)" id="wish-total-label"></span>
+  </div>
+  <div id="wishes-admin-list"><div class="loading-row"><span class="spinner"></span></div></div>
+</div>
+
+<script type="module">
+  import { supabase } from './supabase.js';
+
+  // ── ADMIN PASSWORD (change this!) ──
+  const ADMIN_PASSWORD = 'arjunpriya2025';
+
+  let allRSVPs = [];
+  let allWishes = [];
+
+  // ── LOGIN ──
+  function doLogin() {
+    const val = document.getElementById('pwd-input').value;
+    if (val === ADMIN_PASSWORD) {
+      sessionStorage.setItem('weddingAdmin', '1');
+      showDashboard();
+    } else {
+      document.getElementById('login-err').style.display = 'block';
+    }
+  }
+  window.doLogin = doLogin;
+
+  function logout() {
+    sessionStorage.removeItem('weddingAdmin');
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pwd-input').value = '';
+  }
+  window.logout = logout;
+
+  async function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    await Promise.all([loadRSVPs(), loadWishes(), loadStats()]);
+  }
+
+  // ── LOAD RSVPs ──
+  async function loadRSVPs() {
+    const { data, error } = await supabase
+      .from('rsvp_guests')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) { document.getElementById('rsvp-tbody').innerHTML = `<tr><td colspan="12" style="color:#ff8888;text-align:center;padding:2rem">Error: ${error.message}</td></tr>`; return; }
+    allRSVPs = data || [];
+    renderTable(allRSVPs);
+  }
+
+  // ── LOAD WISHES ──
+  async function loadWishes() {
+    const { data } = await supabase.from('wishes').select('*').order('created_at', { ascending: false });
+    allWishes = data || [];
+    renderWishes(allWishes);
+    document.getElementById('wish-total-label').textContent = `${allWishes.length} total`;
+    document.getElementById('s-wishes').textContent = allWishes.length;
+  }
+
+  // ── STATS ──
+  async function loadStats() {
+    const { data } = await supabase.from('rsvp_guests').select('guest_count, attending_wedding, attending_reception, attending_mehendi, attending_haldi');
+    if (!data) return;
+    document.getElementById('s-total').textContent = data.length;
+    document.getElementById('s-guests').textContent = data.reduce((a,r)=>a+(r.guest_count||1),0);
+    document.getElementById('s-wedding').textContent = data.filter(r=>r.attending_wedding).length;
+    document.getElementById('s-reception').textContent = data.filter(r=>r.attending_reception).length;
+    document.getElementById('s-mehendi').textContent = data.filter(r=>r.attending_mehendi).length;
+  }
+
+  // ── RENDER TABLE ──
+  function renderTable(rows) {
+    const tbody = document.getElementById('rsvp-tbody');
+    if (rows.length === 0) { tbody.innerHTML = `<tr><td colspan="12" class="no-results">No RSVPs found matching your filters.</td></tr>`; document.getElementById('row-count').textContent=''; return; }
+    const badge = (v) => `<span class="badge ${v?'badge-yes':'badge-no'}">${v?'Yes':'—'}</span>`;
+    tbody.innerHTML = rows.map((r,i) => `
+      <tr>
+        <td style="color:rgba(245,230,192,.3)">${i+1}</td>
+        <td><div class="guest-name">${esc(r.first_name)} ${esc(r.last_name)}</div></td>
+        <td>${esc(r.phone)}</td>
+        <td>${esc(r.email||'—')}</td>
+        <td style="text-align:center;font-size:1.1rem;color:var(--gold-light)">${r.guest_count}</td>
+        <td>${badge(r.attending_mehendi)}</td>
+        <td>${badge(r.attending_haldi)}</td>
+        <td>${badge(r.attending_wedding)}</td>
+        <td>${badge(r.attending_reception)}</td>
+        <td><span class="badge badge-veg">${esc(r.meal_preference||'Veg')}</span></td>
+        <td class="msg-cell" title="${esc(r.message||'')}">${esc(r.message||'—')}</td>
+        <td class="date-cell">${new Date(r.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</td>
+      </tr>`).join('');
+    document.getElementById('row-count').textContent = `Showing ${rows.length} of ${allRSVPs.length} RSVPs`;
+  }
+
+  // ── RENDER WISHES ──
+  function renderWishes(wishes) {
+    const el = document.getElementById('wishes-admin-list');
+    if (!wishes.length) { el.innerHTML = '<p style="color:rgba(245,230,192,.4);text-align:center;padding:2rem;font-style:italic">No wishes yet.</p>'; return; }
+    el.innerHTML = wishes.map(w => `
+      <div class="wish-row" id="wish-${w.id}">
+        <div style="flex:1">
+          <div class="wr-text">"${esc(w.wish)}"</div>
+          <div class="wr-meta">— ${esc(w.name)} · ${new Date(w.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})} · ${w.approved?'Visible':'Hidden'}</div>
+        </div>
+        <button class="wr-del" onclick="deleteWish('${w.id}')">Delete</button>
+      </div>`).join('');
+  }
+
+  // ── DELETE WISH ──
+  window.deleteWish = async function(id) {
+    if (!confirm('Delete this wish permanently?')) return;
+    const { error } = await supabase.from('wishes').delete().eq('id', id);
+    if (error) { alert('Error: ' + error.message); return; }
+    document.getElementById('wish-' + id)?.remove();
+    allWishes = allWishes.filter(w=>w.id!==id);
+    document.getElementById('wish-total-label').textContent = `${allWishes.length} total`;
+    document.getElementById('s-wishes').textContent = allWishes.length;
+  };
+
+  // ── FILTER ──
+  window.filterTable = function() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const ev = document.getElementById('event-filter').value;
+    const ml = document.getElementById('meal-filter').value;
+    let filtered = allRSVPs.filter(r => {
+      const name = `${r.first_name} ${r.last_name} ${r.phone} ${r.email||''}`.toLowerCase();
+      if (q && !name.includes(q)) return false;
+      if (ml !== 'all' && r.meal_preference !== ml) return false;
+      if (ev === 'wedding'   && !r.attending_wedding)   return false;
+      if (ev === 'reception' && !r.attending_reception) return false;
+      if (ev === 'mehendi'   && !r.attending_mehendi)   return false;
+      if (ev === 'haldi'     && !r.attending_haldi)     return false;
+      return true;
+    });
+    renderTable(filtered);
+  };
+
+  // ── EXPORT CSV ──
+  window.exportCSV = function() {
+    const headers = ['First Name','Last Name','Phone','Email','Guests','Mehendi','Haldi','Wedding','Reception','Meal','Message','Submitted'];
+    const rows = allRSVPs.map(r => [
+      r.first_name, r.last_name, r.phone, r.email||'',
+      r.guest_count,
+      r.attending_mehendi?'Yes':'No', r.attending_haldi?'Yes':'No',
+      r.attending_wedding?'Yes':'No', r.attending_reception?'Yes':'No',
+      r.meal_preference, (r.message||'').replace(/,/g,' '),
+      new Date(r.created_at).toLocaleString('en-IN')
+    ]);
+    const csv = [headers, ...rows].map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'ArjunPriya_RSVPs_' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click();
+  };
+
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ── AUTO-LOGIN if session exists ──
+  if (sessionStorage.getItem('weddingAdmin') === '1') showDashboard();
+</script>
+</body>
+</html>

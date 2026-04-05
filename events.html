@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Events — Arjun & Priya</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.timeline { max-width:760px; margin:0 auto 5rem; position:relative; }
+.timeline::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--gold) 10%,var(--gold) 90%,transparent); transform:translateX(-50%); }
+.t-item { display:flex; margin-bottom:3rem; position:relative; align-items:flex-start; }
+.t-item:nth-child(odd)  .t-box { margin-right:calc(50% + 30px); text-align:right; }
+.t-item:nth-child(even) .t-box { margin-left:calc(50% + 30px); }
+.t-dot { position:absolute; left:50%; transform:translateX(-50%); top:1.8rem; width:16px; height:16px; border-radius:50%; background:var(--gold); border:3px solid var(--cream); z-index:2; box-shadow:0 0 0 3px rgba(201,168,76,0.3); }
+.t-box { flex:1; background:var(--ivory); border:1px solid rgba(201,168,76,.25); padding:1.8rem 2rem; border-radius:2px; transition:box-shadow .3s,transform .3s; }
+.t-box:hover { box-shadow:0 8px 25px rgba(107,26,26,.1); transform:translateY(-3px); }
+.t-day  { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; margin-bottom:.3rem; }
+.t-name { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--maroon-deep); margin-bottom:.5rem; }
+.t-meta { font-size:.83rem; color:var(--text-mid); line-height:1.8; }
+.t-meta strong { color:var(--maroon); font-weight:400; }
+.t-tag  { display:inline-block; margin-top:.8rem; font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.15em; padding:.25rem .8rem; border:1px solid rgba(201,168,76,.4); color:var(--gold); text-transform:uppercase; }
+
+.dress-section { background:var(--maroon-deep); padding:5rem 2rem; }
+.dress-inner { max-width:1000px; margin:0 auto; }
+.dress-section .section-tag  { color:var(--gold-light); }
+.dress-section .section-title { color:var(--gold-pale); }
+.dress-section .s-rule { background:linear-gradient(to right,transparent,rgba(201,168,76,.4),transparent); }
+.dress-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1.5rem; margin-top:3rem; }
+.d-card { background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.2); padding:2.5rem 1.5rem; text-align:center; transition:background .3s; }
+.d-card:hover { background:rgba(201,168,76,.07); }
+.d-emoji { font-size:3rem; display:block; margin-bottom:1rem; }
+.d-event { font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; margin-bottom:.5rem; }
+.d-style { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:var(--ivory); margin-bottom:.4rem; }
+.d-hint  { font-size:.8rem; color:rgba(245,230,192,.55); line-height:1.6; }
+@media(max-width:760px){
+  .timeline::before{left:16px;}
+  .t-item{padding-left:44px;}
+  .t-item:nth-child(odd) .t-box,.t-item:nth-child(even) .t-box{margin:0;text-align:left;}
+  .t-dot{left:16px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="story.html">Our Story</a>
+  <a href="events.html" class="active">Events</a>
+  <a href="family.html">Family</a>
+  <a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="venue.html">Venue</a>
+  <a href="wishes.html">Wishes</a>
+  <a href="rsvp.html">RSVP</a>
+</nav>
+<main>
+  <div class="page-banner">
+    <p class="page-tag">The Celebrations</p>
+    <h1 class="page-title">Event <em>Schedule</em></h1>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="timeline">
+      <div class="t-item reveal"><div class="t-dot"></div><div class="t-box">
+        <div class="t-day">Day 1 · Thursday, 13 Nov</div>
+        <div class="t-name">Mehendi & Sangeet</div>
+        <div class="t-meta"><strong>Time:</strong> 5:00 PM onwards<br><strong>Venue:</strong> Krishnamurthy Residence, Mylapore<br><strong>Dress:</strong> Colourful festive attire<br>An intimate evening of music, dance, henna artistry & laughter.</div>
+        <div class="t-tag">Intimate · Evening</div>
+      </div></div>
+      <div class="t-item reveal" style="transition-delay:.1s"><div class="t-dot"></div><div class="t-box">
+        <div class="t-day">Day 2 · Friday, 14 Nov</div>
+        <div class="t-name">Haldi Ceremony</div>
+        <div class="t-meta"><strong>Time:</strong> 9:00 AM<br><strong>Venue:</strong> Sharma Residence, T. Nagar<br><strong>Dress:</strong> White or yellow — expect turmeric!<br>A colourful blessing before the big day.</div>
+        <div class="t-tag">Fun · Morning</div>
+      </div></div>
+      <div class="t-item reveal" style="transition-delay:.2s"><div class="t-dot"></div><div class="t-box">
+        <div class="t-day">Day 3 · Saturday, 15 Nov — Main</div>
+        <div class="t-name">Wedding Ceremony</div>
+        <div class="t-meta"><strong>Time:</strong> 7:00 AM – 12:00 PM<br><strong>Venue:</strong> The Grand Palace Convention, Anna Salai<br><strong>Dress:</strong> Traditional silk formals<br>Sacred Vedic rituals, thali, and exchange of vows.</div>
+        <div class="t-tag">Sacred · Morning</div>
+      </div></div>
+      <div class="t-item reveal" style="transition-delay:.3s"><div class="t-dot"></div><div class="t-box">
+        <div class="t-day">Day 3 · Saturday, 15 Nov — Evening</div>
+        <div class="t-name">Reception</div>
+        <div class="t-meta"><strong>Time:</strong> 6:30 PM – 10:30 PM<br><strong>Venue:</strong> The Grand Palace Convention, Anna Salai<br><strong>Dress:</strong> Ethnic chic — gowns, Indo-western, kurta sets<br>Dinner, dancing, blessings & endless celebrations.</div>
+        <div class="t-tag">Grand · Evening</div>
+      </div></div>
+    </div>
+    <div style="text-align:center" class="reveal"><a href="venue.html" class="btn-gold">Venue & Directions →</a></div>
+  </div>
+  <div class="dress-section">
+    <div class="dress-inner">
+      <p class="section-tag reveal">Attire Guide</p>
+      <h2 class="section-title reveal">What To <em>Wear</em></h2>
+      <div class="s-rule reveal"></div>
+      <div class="dress-grid">
+        <div class="d-card reveal"><span class="d-emoji">🌸</span><div class="d-event">Mehendi & Sangeet</div><div class="d-style">Festive & Colourful</div><div class="d-hint">Yellows, greens, oranges — anything vibrant</div></div>
+        <div class="d-card reveal" style="transition-delay:.1s"><span class="d-emoji">💛</span><div class="d-event">Haldi</div><div class="d-style">Light & Casual</div><div class="d-hint">Whites or yellows preferred. Expect colour!</div></div>
+        <div class="d-card reveal" style="transition-delay:.2s"><span class="d-emoji">🥻</span><div class="d-event">Wedding Ceremony</div><div class="d-style">Traditional Formals</div><div class="d-hint">Silk sarees, dhotis, sherwanis. Jewel tones.</div></div>
+        <div class="d-card reveal" style="transition-delay:.3s"><span class="d-emoji">✨</span><div class="d-event">Reception</div><div class="d-style">Ethnic Chic</div><div class="d-hint">Designer sarees, gowns, Indo-western — all welcome.</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><div class="footer-names">Arjun & Priya</div><div class="footer-date">15 · 11 · 2025 · Chennai</div></footer>
+<script>
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

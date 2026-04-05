@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Venue — Arjun & Priya</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.venue-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-bottom:4rem; }
+.vcard { background:var(--ivory); border:1px solid rgba(201,168,76,.25); padding:3rem; }
+.v-icon { font-size:2.8rem; margin-bottom:1.2rem; display:block; }
+.v-name { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--maroon-deep); margin-bottom:.4rem; }
+.v-tag  { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.95rem; color:var(--text-mid); margin-bottom:1.5rem; }
+.v-addr { font-size:.88rem; color:var(--text-mid); line-height:2; margin-bottom:1.5rem; border-left:2px solid var(--gold); padding-left:1rem; }
+.v-row  { display:flex; gap:.6rem; margin-bottom:.6rem; font-size:.85rem; align-items:flex-start; }
+.v-rl   { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.12em; color:var(--gold); text-transform:uppercase; min-width:85px; padding-top:.15rem; }
+.v-rv   { color:var(--text-mid); line-height:1.6; }
+.map-box { border:1px solid rgba(201,168,76,.3); overflow:hidden; border-radius:2px; aspect-ratio:4/3; }
+.map-ph  { width:100%; height:100%; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon)); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; cursor:pointer; transition:opacity .3s; }
+.map-ph:hover { opacity:.88; }
+.map-ph-pin  { font-size:3rem; }
+.map-ph-name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; color:var(--gold-pale); }
+.map-ph-hint { font-size:.78rem; color:rgba(245,230,192,.5); }
+
+.how-grid  { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+.how-card  { padding:2rem 1.5rem; border:1px solid rgba(201,168,76,.2); background:var(--ivory); text-align:center; transition:all .3s; }
+.how-card:hover { background:var(--maroon); }
+.how-card:hover .how-t,.how-card:hover .how-d { color:var(--gold-pale); }
+.how-ic { font-size:2.2rem; display:block; margin-bottom:.8rem; }
+.how-t  { font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.15em; color:var(--gold); text-transform:uppercase; margin-bottom:.5rem; transition:color .3s; }
+.how-d  { font-size:.83rem; color:var(--text-mid); line-height:1.7; transition:color .3s; }
+
+.stays-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+.stay-card  { border:1px solid rgba(201,168,76,.2); background:var(--ivory); padding:1.8rem; transition:box-shadow .3s; }
+.stay-card:hover { box-shadow:0 8px 24px rgba(107,26,26,.1); }
+.stay-name  { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--maroon-deep); margin-bottom:.3rem; }
+.stay-dist  { font-size:.78rem; color:var(--gold); margin-bottom:.5rem; }
+.stay-desc  { font-size:.82rem; color:var(--text-mid); line-height:1.7; }
+@media(max-width:768px){ .venue-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="story.html">Our Story</a>
+  <a href="events.html">Events</a>
+  <a href="family.html">Family</a>
+  <a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="venue.html" class="active">Venue</a>
+  <a href="wishes.html">Wishes</a>
+  <a href="rsvp.html">RSVP</a>
+</nav>
+<main>
+  <div class="page-banner">
+    <p class="page-tag">Location</p>
+    <h1 class="page-title">Find <em>Us Here</em></h1>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="venue-grid">
+      <div class="vcard reveal-l">
+        <span class="v-icon">🏛️</span>
+        <div class="v-name">The Grand Palace Convention</div>
+        <div class="v-tag">Where two families become one</div>
+        <div class="v-addr">No. 42, Anna Salai, Mount Road<br>Chennai – 600 002, Tamil Nadu, India</div>
+        <div class="v-row"><span class="v-rl">Wedding</span><span class="v-rv">15 Nov · 7:00 AM – 12:00 PM</span></div>
+        <div class="v-row"><span class="v-rl">Reception</span><span class="v-rv">15 Nov · 6:30 PM – 10:30 PM</span></div>
+        <div class="v-row"><span class="v-rl">Parking</span><span class="v-rv">Free on premises (500+ vehicles)</span></div>
+        <div class="v-row"><span class="v-rl">Metro</span><span class="v-rv">Anna Salai Station · Green Line (5 min walk)</span></div>
+        <div class="v-row"><span class="v-rl">Phone</span><span class="v-rv">+91 44 1234 5678</span></div>
+        <div style="margin-top:1.8rem">
+          <a class="btn-gold" href="https://maps.google.com?q=Anna+Salai+Chennai" target="_blank">Open in Google Maps ↗</a>
+        </div>
+      </div>
+      <div class="map-box reveal-r">
+        <!-- Replace with: <iframe src="YOUR_GOOGLE_MAPS_EMBED_URL" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy"></iframe> -->
+        <div class="map-ph" onclick="window.open('https://maps.google.com?q=Anna+Salai+Chennai','_blank')">
+          <div class="map-ph-pin">📍</div>
+          <div class="map-ph-name">The Grand Palace Convention</div>
+          <div class="map-ph-hint">Click to open Google Maps</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-tag reveal">Directions</p>
+    <h2 class="section-title reveal">How To <em>Get Here</em></h2>
+    <div class="s-rule reveal"></div>
+    <div class="how-grid">
+      <div class="how-card reveal"><span class="how-ic">🚗</span><div class="how-t">By Car</div><div class="how-d">Take Anna Salai (NH48) towards Mount Road. Free parking on premises for 500+ vehicles.</div></div>
+      <div class="how-card reveal" style="transition-delay:.1s"><span class="how-ic">🚇</span><div class="how-t">By Metro</div><div class="how-d">Green Line to Anna Salai Metro. Exit Gate 2 and walk 5 min north. Venue is visible from station.</div></div>
+      <div class="how-card reveal" style="transition-delay:.2s"><span class="how-ic">🚕</span><div class="how-t">By Cab</div><div class="how-d">Search "Grand Palace Convention, Anna Salai" on Ola or Uber. Drop-off at main entrance.</div></div>
+      <div class="how-card reveal" style="transition-delay:.3s"><span class="how-ic">🚌</span><div class="how-t">By Bus</div><div class="how-d">Routes 19A, 23, 29C stop at Anna Salai. Alight at Mount Road bus stop — 3 min walk.</div></div>
+    </div>
+
+    <p class="section-tag reveal" style="margin-top:4rem">Accommodation</p>
+    <h2 class="section-title reveal">Stays <em>Nearby</em></h2>
+    <div class="s-rule reveal"></div>
+    <div class="stays-grid">
+      <div class="stay-card reveal"><div class="stay-name">The Park Chennai</div><div class="stay-dist">📍 0.8 km · Anna Salai</div><div class="stay-desc">Boutique luxury hotel with stunning city views. Book early for the wedding weekend.</div></div>
+      <div class="stay-card reveal" style="transition-delay:.1s"><div class="stay-name">Taj Connemara</div><div class="stay-dist">📍 1.2 km · Binny Road</div><div class="stay-desc">Heritage luxury hotel. Colonial grandeur with modern comforts — perfect for outstation guests.</div></div>
+      <div class="stay-card reveal" style="transition-delay:.2s"><div class="stay-name">Ibis Chennai City Centre</div><div class="stay-dist">📍 1.5 km · Periamet</div><div class="stay-desc">Smart and modern, great value. Ideal for extended family groups travelling together.</div></div>
+    </div>
+
+    <div style="text-align:center;margin-top:4rem" class="reveal">
+      <a href="rsvp.html" class="btn-gold">Confirm Your Attendance →</a>
+    </div>
+  </div>
+</main>
+<footer><div class="footer-names">Arjun & Priya</div><div class="footer-date">15 · 11 · 2025 · Chennai</div></footer>
+<script>
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

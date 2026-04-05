@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family — Arjun & Priya</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.family-side-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--maroon); font-style:italic; text-align:center; margin:3rem 0 1.5rem; }
+.family-side-title::before,.family-side-title::after { content:''; display:inline-block; width:50px; height:1px; background:rgba(201,168,76,.4); vertical-align:middle; margin:0 1rem; }
+.fgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:1.5rem; max-width:1000px; margin:0 auto 1rem; }
+.fcard { text-align:center; padding:2rem 1rem; border:1px solid rgba(201,168,76,.2); background:var(--ivory); transition:all .3s; }
+.fcard:hover { background:var(--maroon); transform:translateY(-5px); box-shadow:0 15px 35px rgba(107,26,26,.15); }
+.fcard:hover .fn,.fcard:hover .fr { color:var(--gold-pale); }
+.favatar { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--maroon),#9B4040); margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; font-size:1.7rem; border:2px solid var(--gold); transition:all .3s; }
+.fn { font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--maroon-deep); margin-bottom:.2rem; transition:color .3s; }
+.fr { font-size:.75rem; color:var(--text-mid); letter-spacing:.03em; transition:color .3s; }
+.divider-rule { width:100%; height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent); margin:3rem 0; }
+.blessing { background:var(--maroon); padding:4rem 2rem; text-align:center; margin-top:4rem; }
+.blessing p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.4rem; line-height:1.9; color:var(--gold-pale); max-width:600px; margin:0 auto; }
+.blessing small { font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.2em; color:rgba(201,168,76,.5); text-transform:uppercase; display:block; margin-top:1.5rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="story.html">Our Story</a>
+  <a href="events.html">Events</a>
+  <a href="family.html" class="active">Family</a>
+  <a href="menu.html">Menu</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="venue.html">Venue</a>
+  <a href="wishes.html">Wishes</a>
+  <a href="rsvp.html">RSVP</a>
+</nav>
+<main>
+  <div class="page-banner">
+    <p class="page-tag">With Their Blessings</p>
+    <h1 class="page-title">Our <em>Families</em></h1>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="family-side-title reveal">Bride's Family</div>
+    <div class="fgrid">
+      <div class="fcard reveal"><div class="favatar">👨</div><div class="fn">R. Krishnamurthy</div><div class="fr">Bride's Father</div></div>
+      <div class="fcard reveal" style="transition-delay:.05s"><div class="favatar">👩</div><div class="fn">Lakshmi K.</div><div class="fr">Bride's Mother</div></div>
+      <div class="fcard reveal" style="transition-delay:.1s"><div class="favatar">👦</div><div class="fn">Karthik K.</div><div class="fr">Bride's Brother</div></div>
+      <div class="fcard reveal" style="transition-delay:.15s"><div class="favatar">👧</div><div class="fn">Divya K.</div><div class="fr">Sister-in-law</div></div>
+      <div class="fcard reveal" style="transition-delay:.2s"><div class="favatar">👴</div><div class="fn">S. Ramasamy</div><div class="fr">Maternal Grandfather</div></div>
+      <div class="fcard reveal" style="transition-delay:.25s"><div class="favatar">👵</div><div class="fn">Meenakshi S.</div><div class="fr">Maternal Grandmother</div></div>
+    </div>
+    <div class="divider-rule reveal"></div>
+    <div class="family-side-title reveal">Groom's Family</div>
+    <div class="fgrid">
+      <div class="fcard reveal"><div class="favatar">👨</div><div class="fn">Mohan Sharma</div><div class="fr">Groom's Father</div></div>
+      <div class="fcard reveal" style="transition-delay:.05s"><div class="favatar">👩</div><div class="fn">Savitha M.</div><div class="fr">Groom's Mother</div></div>
+      <div class="fcard reveal" style="transition-delay:.1s"><div class="favatar">👧</div><div class="fn">Deepa S.</div><div class="fr">Groom's Sister</div></div>
+      <div class="fcard reveal" style="transition-delay:.15s"><div class="favatar">👦</div><div class="fn">Vikram S.</div><div class="fr">Brother-in-law</div></div>
+      <div class="fcard reveal" style="transition-delay:.2s"><div class="favatar">👴</div><div class="fn">G. Sharma</div><div class="fr">Paternal Grandfather</div></div>
+      <div class="fcard reveal" style="transition-delay:.25s"><div class="favatar">👵</div><div class="fn">Kamala G.</div><div class="fr">Paternal Grandmother</div></div>
+    </div>
+  </div>
+  <div class="blessing reveal">
+    <p>"It takes two families to make a wedding, and a lifetime to become one. We are grateful for every blessing, every prayer, and every hand that raised them to be who they are."</p>
+    <small>— With love, from both families</small>
+  </div>
+</main>
+<footer><div class="footer-names">Arjun & Priya</div><div class="footer-date">15 · 11 · 2025 · Chennai</div></footer>
+<script>
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:0.1});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
